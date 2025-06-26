@@ -9,7 +9,7 @@ const upload = require("../middleware/upload");
 router.post("/donations", upload.single("image"), async (req, res) => {
   try {
     const { title, description, amount, expiration, creatorName, creatorEmail } = req.body;
-    const imagePath = req.file ? req.file.filename : "";
+    const imagePath = req.file ? req.file.path : "";
 
     const newDonation = new Donation({
       title,
