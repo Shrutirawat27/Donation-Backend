@@ -14,11 +14,11 @@ app.use(cors({
 
 app.use(express.json());
 app.use(helmet());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
-  setHeaders: (res, path) => {
-    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
-  }
-}));
+app.use('/uploads', (req, res, next) => {
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+  next();
+}, express.static(path.join(__dirname, 'uploads')));
+
 
 // Routes
 const homeRoutes = require("./src/routes/home.routes");
