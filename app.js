@@ -8,7 +8,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: "https://donation-frontend-eight.vercel.app",
+  origin: ["http://localhost:5173", "https://donation-frontend-eight.vercel.app"],
   credentials: true
 }));
 
@@ -22,12 +22,10 @@ app.use('/uploads', (req, res, next) => {
 
 // Routes
 const homeRoutes = require("./src/routes/home.routes");
-const checkoutRoutes = require("./src/routes/checkout.routes");
 const authRoutes = require("./src/routes/auth.routes");
 const donationRoutes = require("./src/routes/donation.routes");
 
 app.use("/api/v1", homeRoutes);
-app.use("/api/v1", checkoutRoutes);
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", donationRoutes);
 

@@ -1,14 +1,24 @@
-const Donation = require("../models/Donation.model");
+const Donation = require("../models/Campaign.model");
 
-const submitDonation = async (req, res) => {
+const createDonation = async (req, res) => {
     try {
-        const { name, email, amount } = req.body;
-        const donation = await Donation.create({ name, email, amount });
-        res.status(201).json({ message: "Donation recorded", donation });
+        const { title, description, amount, expiration, email } = req.body;
+        const image = req.file?.path || "";
+
+        const donation = await Donation.create({
+            title,
+            description,
+            amount,
+            expiration,
+            email,
+            image,
+        });
+
+        res.status(201).json({ message: "Campaign created successfully", donation });
     } catch (error) {
-        console.error("Donation error:", error);
-        res.status(500).json({ message: "Error saving donation" });
+        console.error("Campaign creation error:", error);
+        res.status(500).json({ message: "Error creating campaign" });
     }
 };
 
-module.exports = { submitDonation };
+module.exports = { createDonation };
