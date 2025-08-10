@@ -24,10 +24,12 @@ app.use('/uploads', (req, res, next) => {
 const homeRoutes = require("./src/routes/home.routes");
 const authRoutes = require("./src/routes/auth.routes");
 const donationRoutes = require("./src/routes/donation.routes");
+const uploadRoutes = require("./src/routes/upload.routes");
 
 app.use("/api/v1", homeRoutes);
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", donationRoutes);
+app.use("/api/v1", uploadRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is working...");
