@@ -10,7 +10,7 @@ router.post("/upload-image", upload.single("image"), (req, res) => {
     console.log("Upload endpoint hit");
   try {
     console.log("File upload middleware ran");
-    
+
     if (!req.file) {
       console.log("No file received in req.file");
       return res.status(400).json({ message: "No file uploaded" });

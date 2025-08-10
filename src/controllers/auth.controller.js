@@ -28,14 +28,13 @@ const login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ message: "Invalid email or password" });
 
-    // Return only necessary user fields to client
     res.json({
       message: "Login successful",
       user: {
         _id: user._id,
         name: user.name,
         email: user.email,
-        profileImage: user.profileImage || null,  // include profileImage here
+        profileImage: user.profileImage || null,  
       },
     });
   } catch (error) {
@@ -45,21 +44,19 @@ const login = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    const userId = req.params.id; // get user ID from URL
-    const { name, profileImage } = req.body; // get updated info from request body
+    const userId = req.params.id; 
+    const { name, profileImage } = req.body; 
 
-    // Find user by ID and update name and profileImage
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { name, profileImage },
-      { new: true } // return the updated user document
+      { new: true } 
     );
 
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Send updated user data back to client
     res.json({
       message: "Profile updated successfully",
       user: {
